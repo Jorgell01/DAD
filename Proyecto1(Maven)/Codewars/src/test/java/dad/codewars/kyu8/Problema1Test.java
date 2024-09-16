@@ -1,8 +1,9 @@
 package dad.codewars.kyu8;
 
-import org.junit.Assert.assertArrayEquals;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertArrayEquals;
 
 public class Problema1Test {
 
