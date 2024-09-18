@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -20,14 +21,12 @@ public class HolaFX extends Application {
 
         Button saludoBoton = new Button();
         saludoBoton.setText("Pulsa aquí pa ganar un iphone 16");
+        saludoBoton.setTooltip(new Tooltip("Si me pulsas me vengo"));
         saludoBoton.setLayoutX(20); //coordenada x del boton
         saludoBoton.setLayoutY(80); //coordenada y del boton
-        saludoBoton.setOnAction(event -> stage.close()); //Si pulsas el boton cierra la ventana
-        saludoBoton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                System.out.println("Me han pulsado");
-            }
+        saludoBoton.setOnAction(actionEvent -> {
+            System.out.println("Me han pulsado");
+            saludoLabel.setText("Wilfredo amigo o enemigo?");
         });
 
         Pane root = new Pane();
