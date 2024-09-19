@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: dad.codewars.kyu8.Problema3Test
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 s -- in dad.codewars.kyu8.Problema3Test
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in dad.codewars.kyu8.Problema3Test
