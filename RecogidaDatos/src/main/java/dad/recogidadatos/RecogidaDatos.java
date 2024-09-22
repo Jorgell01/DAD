@@ -11,8 +11,13 @@ import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.nio.file.Files;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -87,9 +92,9 @@ public class RecogidaDatos extends Application {
         root.setAlignment(Pos.CENTER);
         root.getChildren().addAll(Hboxnombre, Hboxapellido, Hboxedad, Hboxbotones);
 
-        Scene scene = new Scene(root, 500, 260);
+        Scene scene = new Scene(root, 640, 480);
 
-        stage.setTitle("Registro Dato");
+        stage.setTitle("Registro de Datos");
         stage.setScene(scene);
         stage.show();
 
@@ -101,20 +106,37 @@ public class RecogidaDatos extends Application {
         p.setApellidos(apellidoUser.getText());
         p.setEdad(Integer.parseInt(edadUser.getText()));
 
+        File jsonFile = new File("datos.json");
+        List<Persona> personas = new ArrayList<>();
+
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .create();
-        String json = gson.toJson(p);
 
-        File jsonFile = new File("datos.json");
-        try {
-            Files.writeString(jsonFile.toPath(), json);
+        if (jsonFile.exists()) {
+            try (FileReader reader = new FileReader(jsonFile)) {
+                Persona[] personasArray = gson.fromJson(reader, Persona[].class);
+                if (personasArray != null) {
+                    personas.addAll(Arrays.asList(personasArray));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (com.google.gson.JsonSyntaxException e) {
+                System.out.println("El archivo tiene un formato incorrecto. Reiniciando lista.");
+            }
+        }
+
+        personas.add(p);
+
+        try (FileWriter writer = new FileWriter(jsonFile)) {
+            gson.toJson(personas, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        nombreUser.clear();
-        apellidoUser.clear();
-        edadUser.clear();
+
+        this.limpiarDatos();
+
+        System.out.println("Datos guardados correctamente en datos.json");
     }
 
     private void limpiarDatos () {
