@@ -5,14 +5,13 @@ import java.util.List;
 
 public class Observable<T> {
 
-    private List<Observer> observers = new ArrayList();
+    private List<Observer<T>> observers = new ArrayList<>();
 
-    public void suscribe (Observer<T> observer) {
-        this.observers.add(Observer);
+    public void suscribe(Observer<T> observer) {
+        this.observers.add(observer);
     }
 
     public void notifyAll(T value) {
         this.observers.forEach(o -> o.notify(value));
     }
-
 }

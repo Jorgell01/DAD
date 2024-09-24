@@ -1,19 +1,19 @@
 package dad.bindings.observer;
 
-public class ObserbableString extends  Observable<String> {
+public class ObserbableString extends Observable<String> {
 
     private String value;
 
-    public void setValue(String Value) {
-
-        notifyAll(value);
+    public ObserbableString(String value) {
         this.value = value;
-
     }
 
-
-    public static void queEstaPasando(String value) {
-        System.out.println("El valor de str ha cambiado a " + value);
+    public String getValue() {
+        return value;
     }
 
+    public void setValue(String value) {
+        this.value = value;
+        notifyAll(value); // Notificamos a todos los observadores el nuevo valor
+    }
 }
