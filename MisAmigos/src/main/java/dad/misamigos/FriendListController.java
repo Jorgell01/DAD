@@ -1,5 +1,6 @@
 package dad.misamigos;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -22,9 +23,11 @@ import java.util.ResourceBundle;
 
 public class FriendListController implements Initializable {
 
+    private static final Image NO_PHOTO = new Image("/images/pacman_icon.png");
+
     //model
 
-    private ObjectProperty<Friend> friend = new SimpleObjectProperty<>();
+    private final ObjectProperty<Friend> friend = new SimpleObjectProperty<>();
 
     //View
 
@@ -78,7 +81,7 @@ public class FriendListController implements Initializable {
             birthDate.valueProperty().unbindBidirectional(ov.birthDateProperty());
             emailText.textProperty().unbindBidirectional(ov.emailProperty());
             phoneNumberText.textProperty().unbindBidirectional(ov.phoneNumberProperty());
-            ImageView.imageProperty().unbindBidirectional(ov.photoProperty());
+            ImageView.imageProperty().unbind();
 
         }
 
@@ -89,7 +92,11 @@ public class FriendListController implements Initializable {
             birthDate.valueProperty().bindBidirectional(nv.birthDateProperty());
             emailText.textProperty().bindBidirectional(nv.emailProperty());
             phoneNumberText.textProperty().bindBidirectional(nv.phoneNumberProperty());
-            ImageView.imageProperty().bindBidirectional(nv.photoProperty());
+            ImageView.imageProperty().bind(
+                    Bindings.when(nv.photoProperty().isNull())
+                            .then(new Image("/images/pacman_icon.png"))
+                            .otherwise(nv.photoProperty())
+            );
 
         }
 
