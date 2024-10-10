@@ -1,9 +1,15 @@
 package dad.misamigos;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import dad.misamigos.adapters.ImageAdapter;
+import dad.misamigos.adapters.LocalDateAdapter;
+import dad.misamigos.cotrollers.RootController;
+import dad.misamigos.model.Friend;
+import dad.misamigos.model.FriendList;
 import javafx.application.Application;
+import javafx.beans.property.ListProperty;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.hildan.fxgson.FxGson;
 
@@ -14,11 +20,26 @@ import java.time.LocalDate;
 
 public class ScenarioApp extends Application {
 
+    private static final File DATA_DIR = new File(System.getProperty("user.home"), ".MisAmigos");
+    private static final File FRIENDS_FILE = new File(DATA_DIR, "friends.json");
+
+    private final Gson gson = FxGson.fullBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+            .registerTypeAdapter(Image.class, new ImageAdapter())
+            .create();
+
     private final RootController rootController = new RootController();
 
     @Override
     public void init() throws Exception {
         // cargar los amigos desde el fichero json
+        if (FRIENDS_FILE.exists()) {
+        String json = Files.readString(FRIENDS_FILE.toPath(), StandardCharsets.UTF_8);
+        ListProperty<Friend> friends = gson.fromJson(json, FriendList.class);
+        rootController.getFriends().setAll(friends);
+        System.out.println(friends.size() + " contactos leídos desde el fichero " + FRIENDS_FILE);
+        }
     }
 
     @Override
@@ -32,13 +53,11 @@ public class ScenarioApp extends Application {
     @Override
     public void stop() throws Exception {
         //guardar los amigos en el fichero json
-        File friendsFile = new File("friends.json");
-        Gson gson = FxGson.fullBuilder()
-                .setPrettyPrinting()
-                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                .create();
+        if (!DATA_DIR.exists()) {
+            DATA_DIR.mkdir();
+        }
         String json = gson.toJson(rootController.getFriends());
-        Files.writeString(friendsFile.toPath(), json, StandardCharsets.UTF_8);
-        System.out.println("Cambios guardados en el fichero " + friendsFile);
+        Files.writeString(FRIENDS_FILE.toPath(), json, StandardCharsets.UTF_8);
+        System.out.println("Cambios guardados en el fichero " + FRIENDS_FILE);
     }
 }

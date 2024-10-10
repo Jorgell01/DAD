@@ -1,5 +1,6 @@
-package dad.misamigos;
+package dad.misamigos.cotrollers;
 
+import dad.misamigos.model.Friend;
 import javafx.beans.Observable;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -29,8 +30,9 @@ public class RootController implements Initializable {
 
     //model
 
-    private final ListProperty<Friend> friends = new SimpleListProperty<>(FXCollections.observableArrayList(
-            friend -> new Observable[] { friend.nameProperty(), friend.surnameProperty()} //indicamos que properties de cada bean son observables dentor de la lista
+    private final ListProperty<Friend> friends = new SimpleListProperty<>(
+            FXCollections.observableArrayList(
+                    friend -> new Observable[] { friend.nameProperty(), friend.surnameProperty()} //indicamos que properties de cada bean son observables dentor de la lista
     ));
 
     private final ObjectProperty<Friend> selectFriend = new SimpleObjectProperty<>();

@@ -5,12 +5,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2582ea;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <left>
@@ -24,28 +22,20 @@
       <HBox spacing="5.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="friendButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onFriendAction" text="Amigo">
-               <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/pacman_icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
                <tooltip>
                   <Tooltip text="Añadir un amigo" />
                </tooltip>
+               <graphic>
+                  <FontIcon iconColor="#219621" iconLiteral="far-grin-wink" iconSize="24" />
+               </graphic>
             </Button>
             <Button fx:id="enemyButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onEnemyAction" text="Enemigo">
-               <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/ghost_icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
                <tooltip>
                   <Tooltip text="Exterminar un enemigo" />
                </tooltip>
+               <graphic>
+                  <FontIcon iconColor="#ef0101" iconLiteral="far-angry" iconSize="24" />
+               </graphic>
             </Button>
          </children>
          <padding>
@@ -56,6 +46,7 @@
    <center>
       <VBox fx:id="emptyBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
+            <FontIcon iconLiteral="fas-hand-point-left" iconSize="26" />
             <Label text="Seleccione un amigo de la lista" />
          </children>
       </VBox>

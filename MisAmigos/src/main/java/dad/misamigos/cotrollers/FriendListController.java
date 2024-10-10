@@ -1,5 +1,6 @@
-package dad.misamigos;
+package dad.misamigos.cotrollers;
 
+import dad.misamigos.model.Friend;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
