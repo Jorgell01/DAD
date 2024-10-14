@@ -2,6 +2,7 @@ package dad.misamigos.cotrollers;
 
 import dad.misamigos.model.Friend;
 import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -14,8 +15,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -54,6 +57,12 @@ public class RootController implements Initializable {
     @FXML
     private VBox emptyBox;
 
+    @FXML
+    private BorderPane placeholderPane;
+
+    @FXML
+    private Label friendsCountLabel;
+
     public RootController() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RootView.fxml"));
@@ -72,7 +81,12 @@ public class RootController implements Initializable {
         friendList.itemsProperty().bind(friends);
         selectFriend.bind(friendList.getSelectionModel().selectedItemProperty());
         enemyButton.disableProperty().bind(selectFriend.isNull());
-        selectFriend.addListener(this::onSelectFriendChanged);
+        placeholderPane.centerProperty().bind(
+                Bindings.when(selectFriend.isNotNull())
+                        .then((Pane)friendListController.getRoot())
+                        .otherwise(emptyBox)
+        );
+        friendsCountLabel.textProperty().bind(friends.sizeProperty().asString());
         friendListController.friendProperty().bind(selectFriend);
 
     }
