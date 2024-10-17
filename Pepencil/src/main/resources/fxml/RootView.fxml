@@ -33,14 +33,14 @@
                               <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" text="Guardar">
+                        <MenuItem mnemonicParsing="false" onAction="#onSaveAction" text="Guardar">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="G" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
-                        <MenuItem mnemonicParsing="false" text="Guardar como" />
+                        <MenuItem mnemonicParsing="false" onAction="#onSaveAsAction" text="Guardar como" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Salir">
+                        <MenuItem mnemonicParsing="false" onAction="#onExitAction" text="Salir">
                            <accelerator>
                               <KeyCodeCombination alt="DOWN" code="F4" control="UP" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
@@ -77,50 +77,50 @@
                             </tooltip>
                             Abrir
                         </Button>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" onAction="#onSaveAction">
                             <tooltip>
                                 <Tooltip text="Guardar proyecto" />
                             </tooltip>
                             Guardar
                         </Button>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" onAction="#onCloseAction">
                             <tooltip>
                                 <Tooltip text="Cerrar esta ventana" />
                             </tooltip>
                             Cerrar
                         </Button>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" onAction="#onCloseAllAction">
                             <tooltip>
                                 <Tooltip text="Cerrar todas las ventanas" />
                             </tooltip>
                             Cerrar todo
                         </Button>
                         <Separator orientation="VERTICAL" prefHeight="200.0" />
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" onAction="#onCopyAction">
                             <tooltip>
                                 <Tooltip text="Copiar" />
                             </tooltip>
                             Copiar
                         </Button>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" onAction="#onCutAction">
                             <tooltip>
                                 <Tooltip text="Cortar" />
                             </tooltip>
                             Cortar
                         </Button>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" onAction="#onPasteAction">
                             <tooltip>
                                 <Tooltip text="Pegar" />
                             </tooltip>
                             Pegar
                         </Button>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" onAction="#onUndoAction">
                             <tooltip>
                                 <Tooltip text="Deshacer" />
                             </tooltip>
                             Deshacer
                         </Button>
-                        <Button mnemonicParsing="false">
+                        <Button mnemonicParsing="false" onAction="#onDoAction">
                             <tooltip>
                                 <Tooltip text="Rehacer" />
                             </tooltip>
