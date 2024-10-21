@@ -9,10 +9,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 
-import java.beans.BeanInfo;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ResourceBundle;
 
@@ -24,6 +24,8 @@ public class EditorController implements Initializable {
     private final ReadOnlyStringWrapper name = new ReadOnlyStringWrapper("Untitled");
     private final StringProperty content = new SimpleStringProperty();
     private final BooleanProperty hasChanges = new SimpleBooleanProperty();
+
+    // view
 
     @FXML
     private TextArea editArea;
@@ -46,14 +48,11 @@ public class EditorController implements Initializable {
 
         // bindings
 
-        file.addListener(this::onFileChanged);
-
         editArea.textProperty().bindBidirectional(content);
 
         content.addListener(this::onContentChanged);
 
         name.bind(Bindings.createStringBinding(this::updateName, file, hasChanges));
-
 
     }
 
@@ -61,28 +60,46 @@ public class EditorController implements Initializable {
         return root;
     }
 
-    //listeners
+    // listeners
 
-    public void onContentChanged(Observable o, String ov, String nv) {
+    private void onContentChanged(Observable o, String ov, String nv) {
         hasChanges.set(true);
     }
 
     private String updateName() {
-        return (file.get() == null ? "Untitled" : file.get().getName()) + (hasChanges.get() ? "*" : "");
+        return
+                (file.get() == null ? "Untitled" : file.get().getName()) +
+                (hasChanges.get() ? "*" : "");
     }
 
-    private void onFileChanged(Observable o, File ov, File nv) {
-        if (nv != null) {
-            open();
-        }
-    }
+    // logic
 
-    public void open() {
+    private void open() {
         try {
             this.content.set(Files.readString(file.get().toPath()));
+            this.hasChanges.set(false);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void open(File file) {
+        setFile(file);
+        open();
+    }
+
+    public void save() {
+        try {
+            Files.writeString(file.get().toPath(), content.get());
+            this.hasChanges.set(false);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void saveAs(File file) {
+        setFile(file);
+        save();
     }
 
     public void cut() {
@@ -93,10 +110,6 @@ public class EditorController implements Initializable {
         editArea.copy();
     }
 
-    public void redo() {
-        editArea.redo();
-    }
-
     public void paste() {
         editArea.paste();
     }
@@ -105,8 +118,11 @@ public class EditorController implements Initializable {
         editArea.undo();
     }
 
-    // getter & setter
+    public void redo() {
+        editArea.redo();
+    }
 
+    // getters & setters
 
     public File getFile() {
         return file.get();
@@ -127,4 +143,5 @@ public class EditorController implements Initializable {
     public ReadOnlyStringProperty nameProperty() {
         return name.getReadOnlyProperty();
     }
+
 }
