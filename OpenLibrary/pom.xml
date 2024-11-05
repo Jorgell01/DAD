@@ -50,4 +50,33 @@
       <version>2.11.0</version>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jsonschema2pojo</groupId>
+        <artifactId>jsonschema2pojo-maven-plugin</artifactId>
+        <version>1.2.2</version>
+        <configuration>
+          <outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory>
+          <sourceType>json</sourceType>
+          <annotationStyle>gson</annotationStyle>
+        </configuration>
+        <executions>
+          <execution>
+            <id>generate-topTracks</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <sourceDirectory>${basedir}/schemas/openlibrary</sourceDirectory>
+              <targetPackage>dad.openlibrary.api</targetPackage>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>
