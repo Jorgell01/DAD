@@ -17,6 +17,7 @@ public class Personal {
     private final StringProperty localidad = new SimpleStringProperty();
     private final StringProperty pais = new SimpleStringProperty();
     private final ListProperty<Nacionalidad> nacionalidades = new SimpleListProperty<>(FXCollections.observableArrayList());
+    private final ListProperty<Email> emails = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     public String getIdentificacion() {
         return identificacion.get();
@@ -124,5 +125,17 @@ public class Personal {
 
     public void setNacionalidades(ObservableList<Nacionalidad> nacionalidades) {
         this.nacionalidades.set(nacionalidades);
+    }
+
+    public ObservableList<Email> getEmails() {
+        return emails.get();
+    }
+
+    public ListProperty<Email> emailsProperty() {
+        return emails;
+    }
+
+    public void setEmails(ObservableList<Email> emails) {
+        this.emails.set(emails);
     }
 }

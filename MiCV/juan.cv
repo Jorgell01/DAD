@@ -1,0 +1,26 @@
+{
+  "personal": {
+    "identificacion": "12345678Z",
+    "nombre": "Juan",
+    "apellidos": "García",
+    "fechaNacimiento": "1940-01-20",
+    "direccion": null,
+    "codigoPostal": null,
+    "localidad": null,
+    "pais": "España",
+    "nacionalidades": [],
+    "emails": [
+      {
+        "direccion": "juan@gmail.com"
+      }
+    ]
+  },
+  "contacto": {
+    "telefonos": [],
+    "emails": [],
+    "webs": []
+  },
+  "conocimientos": null,
+  "experiencias": null,
+  "formacion": null
+}
