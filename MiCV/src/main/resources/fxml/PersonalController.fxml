@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22">
+  <columnConstraints>
+    <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
+    <ColumnConstraints hgrow="SOMETIMES" />
+      <ColumnConstraints hgrow="SOMETIMES" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label text="DNI/NIE/Pasaporte" />
+      <Label text="Nombre" GridPane.rowIndex="1" />
+      <Label text="Apellidos" GridPane.rowIndex="2" />
+      <Label text="Fecha de nacimiento" GridPane.rowIndex="3" />
+      <Label text="Dirección" GridPane.rowIndex="4" />
+      <Label text="Código Postal" GridPane.rowIndex="6" />
+      <Label text="Localidad" GridPane.rowIndex="7" />
+      <Label text="País" GridPane.rowIndex="8" />
+      <Label text="Nacionalidad" GridPane.rowIndex="9" />
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9" GridPane.rowSpan="2">
+         <children>
+            <TextArea prefWidth="350.0" />
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onNewDialog" text="+" />
+                  <Button mnemonicParsing="false" prefWidth="25.0" text="-" />
+               </children>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+      </HBox>
+      <TextField GridPane.columnIndex="1" GridPane.columnSpan="2">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+      </TextField>
+      <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+      </DatePicker>
+      <TextField maxHeight="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField maxWidth="80.0" prefColumnCount="5" GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+      </TextField>
+      <ComboBox prefWidth="150.0" promptText="Seleccione un país" GridPane.columnIndex="1" GridPane.rowIndex="8">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+      </ComboBox>
+   </children>
+</GridPane>
