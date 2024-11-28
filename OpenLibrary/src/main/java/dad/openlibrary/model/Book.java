@@ -17,11 +17,11 @@ public class Book {
 
     public Book(Doc doc) {
         this.title.set(doc.getTitle());
-        this.author.set(doc.getAuthorName() != null && !doc.getAuthorName().isEmpty() ?  doc.getAuthorName().getFirst() : "");
-        this.isbn.set(doc.getIsbn()!= null && !doc.getIsbn().isEmpty() ?  doc.getAuthorName().getFirst() : "");
-        this.publisher.set(doc.getPublisher()!= null && !doc.getPublisher().isEmpty() ?  doc.getAuthorName().getFirst() : "");
+        this.author.set(doc.getAuthorName() != null && !doc.getAuthorName().isEmpty() ? doc.getAuthorName().get(0) : "");
+        this.isbn.set(doc.getIsbn() != null && !doc.getIsbn().isEmpty() ? doc.getIsbn().get(0) : "");
+        this.publisher.set(doc.getPublisher() != null && !doc.getPublisher().isEmpty() ? doc.getPublisher().get(0) : "");
         this.numPages.set(doc.getNumberOfPagesMedian() != null ? doc.getNumberOfPagesMedian() : 0);
-        this.hasPages.bind(numPages.greaterThan(0));
+        this.hasPages.set(doc.getNumberOfPagesMedian() != null && doc.getNumberOfPagesMedian() > 0);
     }
 
     public String getTitle() {

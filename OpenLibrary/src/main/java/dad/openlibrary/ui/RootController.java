@@ -6,6 +6,7 @@ import dad.openlibrary.api.SearchResult;
 import dad.openlibrary.model.Book;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -63,6 +65,16 @@ public class RootController implements Initializable {
     @FXML
     private TextField searchText;
 
+    @FXML
+    private HBox searchingBox;
+
+    @FXML
+    private Label searchingLabel;
+
+    @FXML
+    private ProgressBar searchingProgress;
+
+
     public RootController() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RootView.fxml"));
@@ -93,6 +105,9 @@ public class RootController implements Initializable {
 
         booksTable.itemsProperty().bind(books);
         search.bind(searchText.textProperty());
+
+        searchingBox.setVisible(false);
+        searchingProgress.setVisible(false);
     }
 
     public static BorderPane getRoot() {
@@ -102,23 +117,52 @@ public class RootController implements Initializable {
     @FXML
     void onSearchAction(ActionEvent event) {
 
-        try {
-            SearchResult result = openLibrary.getBooks(search.get());
-            List<Book> books = result.getDocs()
-                    .stream()
-                    .map(Book::new)
-//                    .filter(book -> book.getNumPages() != 0)
-                    .toList();
-            this.books.setAll(books);
-        } catch (IOException e) {
+        Task<List<Book>> task = new Task<>() {
+            @Override
+            protected List<Book> call() throws Exception {
+                SearchResult result = openLibrary.getBooks(search.get());
+                return result.getDocs()
+                        .stream()
+                        .map(Book::new)
+                        .collect(Collectors.toList());
+            }
+        };
+
+        task.setOnSucceeded(e -> {
+            this.books.setAll(task.getValue());
+        });
+
+        task.setOnFailed(e -> {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(root.getScene().getWindow());
             alert.setTitle("Error");
             alert.setHeaderText("Error al buscar libros");
-            alert.setContentText(e.getLocalizedMessage());
+            alert.setContentText(task.getException().getLocalizedMessage());
             alert.showAndWait();
-            throw new RuntimeException(e);
-        }
+        });
+
+        searchingBox.visibleProperty().bind(task.runningProperty());
+        searchingProgress.visibleProperty().bind(task.runningProperty());
+
+        new Thread(task).start();
+
+//        try {
+//            SearchResult result = openLibrary.getBooks(search.get());
+//            List<Book> books = result.getDocs()
+//                    .stream()
+//                    .map(Book::new)
+//                    .filter(book -> book.getNumPages() != 0)
+//                    .toList();
+//            this.books.setAll(books);
+//        } catch (IOException e) {
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.initOwner(root.getScene().getWindow());
+//            alert.setTitle("Error");
+//            alert.setHeaderText("Error al buscar libros");
+//            alert.setContentText(e.getLocalizedMessage());
+//            alert.showAndWait();
+//            throw new RuntimeException(e);
+//        }
 
     }
 
